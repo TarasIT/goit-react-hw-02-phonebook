@@ -15,7 +15,7 @@ export class App extends Component {
     filter: '',
   };
 
-  submitHandler = newContact => {
+  addNewContact = newContact => {
     this.setState({
       contacts: [...this.state.contacts, newContact],
     });
@@ -39,7 +39,7 @@ export class App extends Component {
     return (
       <Container>
         <Title>Phonebook</Title>
-        <ContactForm submitHandler={this.submitHandler} contacts={contacts} />
+        <ContactForm submitHandler={this.addNewContact} contacts={contacts} />
         {contacts.length !== 0 && (
           <>
             <Contacts>Contacts</Contacts>
