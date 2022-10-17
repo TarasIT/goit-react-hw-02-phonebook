@@ -19,19 +19,22 @@ export class Filter extends Component {
     const contacts = this.props.contacts;
     const lowerCaseQuery = this.props.filter.toLowerCase();
 
-    const contactToDelete = contacts.find(({ name }) => {
+    contacts.forEach(({ name }) => {
       const lowerCaseName = name.toLowerCase();
-      return lowerCaseName.includes(lowerCaseQuery);
+      if (lowerCaseName.includes(lowerCaseQuery)) {
+        return alert(`${name} is successfully deleted from contacts!`);
+      }
     });
-    const contactIndex = contacts.indexOf(contactToDelete);
 
-    if (contacts.includes(contactToDelete) && lowerCaseQuery.length !== 0) {
-      contacts.splice(contactIndex, 1);
-      alert(`${contactToDelete.name} is successfully deleted from contacts!`);
-      this.reset();
-    } else {
-      alert('Please, choose a contact to delete!');
-    }
+    const newArrayWithoutDeletedContact = contacts.filter(({ name }) => {
+      const lowerCaseName = name.toLowerCase();
+      return (
+        !lowerCaseName.includes(lowerCaseQuery) && lowerCaseQuery.length !== 0
+      );
+    });
+
+    this.props.deleteContact(newArrayWithoutDeletedContact);
+    this.reset();
   };
 
   render() {

@@ -27,6 +27,12 @@ export class App extends Component {
     });
   };
 
+  deleteContact = newArr => {
+    this.setState(prevState => {
+      prevState.contacts = newArr;
+    });
+  };
+
   render() {
     const { contacts, filter } = this.state;
 
@@ -39,6 +45,7 @@ export class App extends Component {
             <Contacts>Contacts</Contacts>
             <Filter
               inputHandler={this.filterInputHandler}
+              deleteContact={this.deleteContact}
               contacts={contacts}
               filter={filter}
             />
