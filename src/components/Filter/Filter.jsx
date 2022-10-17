@@ -20,6 +20,10 @@ export class Filter extends Component {
     const contacts = this.props.contacts;
     const lowerCaseQuery = this.props.filter.toLowerCase();
 
+    if (lowerCaseQuery.length === 0) {
+      return alert(`Please, choose a contact to delete!`);
+    }
+
     contacts.forEach(({ name }) => {
       const lowerCaseName = name.toLowerCase();
       if (lowerCaseName.includes(lowerCaseQuery)) {
