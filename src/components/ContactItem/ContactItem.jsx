@@ -1,18 +1,21 @@
 import PropTypes from 'prop-types';
-import { Contact, Item } from './ContactItem.styled';
+import { Contact, ContactsDeleteBtn, Item } from './ContactItem.styled';
 
-export const ContactItem = ({ contacts, filter }) => {
-  return contacts.map(contact => {
-    const { name, id, number } = contact;
-    const lowerCaseName = name.toLowerCase();
-    const lowerCaseQuery = filter.toLowerCase();
-
+export const ContactItem = ({ contacts, filter, deleteContact }) => {
+  return contacts.map(({ name, id, number }) => {
     return (
-      lowerCaseName.includes(lowerCaseQuery) && (
+      name.toLowerCase().includes(filter.toLowerCase()) && (
         <Item key={id}>
           <Contact>
             {name}: {number}
           </Contact>
+          <ContactsDeleteBtn
+            type="button"
+            name={id}
+            onClick={e => deleteContact(e.target.name)}
+          >
+            Delete
+          </ContactsDeleteBtn>
         </Item>
       )
     );
@@ -28,4 +31,5 @@ ContactItem.propTypes = {
     })
   ),
   filter: PropTypes.string.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };

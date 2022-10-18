@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import { ContactItem } from 'components/ContactItem/ContactItem';
 
-export const ContactList = ({ contacts, filter, children }) => {
+export const ContactList = ({ contacts, filter, deleteContact, children }) => {
   return (
     <ul>
+      <ContactItem
+        contacts={contacts}
+        filter={filter}
+        deleteContact={deleteContact}
+      />
       {children}
-      <ContactItem contacts={contacts} filter={filter} />
     </ul>
   );
 };

@@ -16,8 +16,15 @@ export class App extends Component {
   };
 
   addNewContact = newContact => {
+    const { contacts } = this.state;
+    const identicalContact = contacts.find(({ name }) => {
+      return name.toLowerCase() === newContact.name.toLowerCase();
+    });
+    if (identicalContact !== undefined) {
+      return alert(`${identicalContact.name} is already in contacts!`);
+    }
     this.setState({
-      contacts: [...this.state.contacts, newContact],
+      contacts: [...contacts, newContact],
     });
   };
 
@@ -27,29 +34,38 @@ export class App extends Component {
     });
   };
 
-  deleteContact = newArr => {
-    this.setState(prevState => {
-      prevState.contacts = newArr;
+  reset = () => {
+    this.filterInputHandler('');
+  };
+
+  deleteContact = contactId => {
+    const { contacts } = this.state;
+    const newArray = contacts.filter(({ id }) => id !== contactId);
+    this.setState({
+      contacts: newArray,
     });
+    this.reset();
   };
 
   render() {
     const { contacts, filter } = this.state;
-
     return (
       <Container>
         <Title>Phonebook</Title>
-        <ContactForm submitHandler={this.addNewContact} contacts={contacts} />
+        <ContactForm submitHandler={this.addNewContact} />
         {contacts.length !== 0 && (
           <>
             <Contacts>Contacts</Contacts>
             <Filter
               inputHandler={this.filterInputHandler}
-              deleteContact={this.deleteContact}
               contacts={contacts}
               filter={filter}
             />
-            <ContactList contacts={contacts} filter={filter} />
+            <ContactList
+              contacts={contacts}
+              filter={filter}
+              deleteContact={this.deleteContact}
+            />
           </>
         )}
       </Container>

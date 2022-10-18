@@ -12,16 +12,6 @@ export class ContactForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const identicalContact = this.props.contacts.find(({ name }) => {
-      const stateLowerCaseName = this.state.name.toLowerCase();
-      return stateLowerCaseName === name.toLowerCase();
-    });
-
-    if (identicalContact !== undefined) {
-      alert(`${identicalContact.name} is already in contacts!`);
-      return this.reset();
-    }
-
     const newContact = {};
     newContact.id = nanoid();
     newContact.name = this.state.name;

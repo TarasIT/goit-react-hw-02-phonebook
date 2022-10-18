@@ -20,16 +20,3 @@ export const FilterInput = styled.input`
   margin-left: 20px;
   font-size: 18px;
 `;
-
-export const ContactsDeleteBtn = styled.button`
-  min-width: 150px;
-  height: 40px;
-  border-radius: 5px;
-  font-size: 18px;
-  background-color: #e2e2e2;
-
-  :hover,
-  :focus {
-    background-color: #c4c4c4;
-  }
-`;
