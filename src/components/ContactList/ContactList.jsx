@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types';
 import { ContactItem } from 'components/ContactItem/ContactItem';
 
-export const ContactList = ({ contacts, filter, deleteContact, children }) => {
+export const ContactList = ({ contacts, deleteContact, children }) => {
   return (
     <ul>
-      <ContactItem
-        contacts={contacts}
-        filter={filter}
-        deleteContact={deleteContact}
-      />
+      <ContactItem contacts={contacts} deleteContact={deleteContact} />
       {children}
     </ul>
   );
@@ -22,5 +18,4 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  filter: PropTypes.string.isRequired,
 };

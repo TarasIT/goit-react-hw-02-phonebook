@@ -15,6 +15,14 @@ export class App extends Component {
     filter: '',
   };
 
+  filteredContacts = () => {
+    const { contacts, filter } = this.state;
+    const normilizedFilter = filter.toLowerCase();
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normilizedFilter)
+    );
+  };
+
   addNewContact = newContact => {
     const { contacts } = this.state;
     const identicalContact = contacts.find(({ name }) => {
@@ -49,22 +57,24 @@ export class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
+    const {
+      addNewContact,
+      filterInputHandler,
+      filteredContacts,
+      deleteContact,
+    } = this;
+
     return (
       <Container>
         <Title>Phonebook</Title>
-        <ContactForm submitHandler={this.addNewContact} />
+        <ContactForm submitHandler={addNewContact} />
         {contacts.length !== 0 && (
           <>
             <Contacts>Contacts</Contacts>
-            <Filter
-              inputHandler={this.filterInputHandler}
-              contacts={contacts}
-              filter={filter}
-            />
+            <Filter inputHandler={filterInputHandler} filter={filter} />
             <ContactList
-              contacts={contacts}
-              filter={filter}
-              deleteContact={this.deleteContact}
+              contacts={filteredContacts()}
+              deleteContact={deleteContact}
             />
           </>
         )}
